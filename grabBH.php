@@ -9,6 +9,7 @@ if (fsockopen("api.brick-hill.com",80,$errno,$errstr,20)) {
 }
 // check http status 
 $_ = curl_init("http://api.brick-hill.com/v1/assets/getPoly/1/1"); //just to see if it's up
+curl_setopt($curl,CURLOPT_TIMEOUT,20);
 curl_exec($_);
 $status = curl_getinfo($_,CURLINFO_HTTP_CODE);
 curl_close($_);
