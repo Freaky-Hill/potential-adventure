@@ -1,4 +1,5 @@
 <?php
+ob_start(); // to control output
 // CHECK AVAILABILITY OF THE API SITE
 // check if reachable:
 if (fsockopen("api.brick-hill.com",80,$errno,$errstr,20)) {
@@ -9,19 +10,17 @@ if (fsockopen("api.brick-hill.com",80,$errno,$errstr,20)) {
 }
 // check http status 
 $_ = curl_init("http://api.brick-hill.com/v1/assets/getPoly/1/1"); //just to see if it's up
-curl_setopt($curl,CURLOPT_TIMEOUT,20);
+curl_setopt($_,CURLOPT_TIMEOUT,20);
+curl_setopt($_,CURLOPT_NOBODY,true);
 curl_exec($_);
 $status = curl_getinfo($_,CURLINFO_HTTP_CODE);
 curl_close($_);
-ob_clean();
-flush();
 if ($status != 301) {
 	// status could be bad gateway, or some other cloudflare error, meaning the site is down.
 	exit('<html><head><title></title><script>alert("It seems that Brick Hill\'s API is not currently available; this tool cannot be used.");</script></head><body></body></html>');
 } else {
 	// the server returned 301, showing it did the expected redirect, so it is correctly functioning
 }
-ob_start(); // to control output
 if (isset($_POST['texture'])) {
 	// parse JSON for texture value
 	$jsonResp = json_decode(file_get_contents('https://api.brick-hill.com/v1/assets/getPoly/1/'.$_POST['itemID']));
