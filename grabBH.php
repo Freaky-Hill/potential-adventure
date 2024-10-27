@@ -13,6 +13,8 @@ curl_setopt($curl,CURLOPT_TIMEOUT,20);
 curl_exec($_);
 $status = curl_getinfo($_,CURLINFO_HTTP_CODE);
 curl_close($_);
+ob_clean();
+flush();
 if ($status != 301) {
 	// status could be bad gateway, or some other cloudflare error, meaning the site is down.
 	exit('<html><head><title></title><script>alert("It seems that Brick Hill\'s API is not currently available; this tool cannot be used.");</script></head><body></body></html>');
