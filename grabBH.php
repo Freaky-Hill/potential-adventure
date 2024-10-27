@@ -1,7 +1,7 @@
 <?php
 // CHECK AVAILABILITY OF THE API SITE
 // check if reachable:
-if (fsockopen("http://api.brick-hill.com",80,$errno,$error,$time)) {
+if (fsockopen("api.brick-hill.com",80,$errno,$error,$time)) {
 	// reachable by server
 } else {
 	// host not reachable
