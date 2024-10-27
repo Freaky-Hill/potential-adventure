@@ -8,7 +8,7 @@ if (fsockopen("api.brick-hill.com",80,$errno,$errstr,20)) {
 	exit('<html><head><title></title><script>alert("It seems that Brick Hill\'s API is not currently reachable; this tool cannot be used.");</script></head><body></body></html>');
 }
 // check http status 
-$_ = curl_init("https://api.brick-hill.com/v1/assets/getPoly/1/1");
+$_ = curl_init("http://api.brick-hill.com/v1/assets/getPoly/1/1"); //just to see if it's up
 curl_exec($_);
 $status = curl_getinfo($_,CURLINFO_HTTP_CODE);
 curl_close($_);
